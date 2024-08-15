@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc scraper.ts && node scraper.js"
+    "start": "tsc --skipLibCheck webScraper.ts && node webScraper.js"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +12,8 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^22.3.0"
+  },
+  "dependencies": {
+    "puppeteer": "^23.0.2"
   }
 }
