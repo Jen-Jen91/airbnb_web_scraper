@@ -12,3 +12,4 @@
 - Convert output data into a CSV or PDF file
 - Might come across security issues with certain URLs which could block scraping
 - Alternative to Puppeteer (requires Chromium browser)
+- Create separate rows to each amenity on the CSV file

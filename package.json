@@ -14,6 +14,7 @@
     "@types/node": "^22.3.0"
   },
   "dependencies": {
+    "fast-csv": "^5.0.1",
     "puppeteer": "^23.0.2"
   }
 }

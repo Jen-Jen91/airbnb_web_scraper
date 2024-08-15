@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer"
+import { writeToPath } from "@fast-csv/format"
 
 type Amenities = {
     available: string[],
@@ -11,6 +12,15 @@ type PropertyDetails = {
     numberOfBedrooms: number | string
     numberOfBathrooms: number | string
     amenities: Amenities
+}
+
+type CsvPropertyDetails = {
+    PropertyName: string
+    PropertyType: string
+    NumberOfBedrooms: number | string
+    NumberOfBathrooms: number | string
+    AvailableAmenities: string[]
+    UnavailableAmenities: string[]
 }
 
 const TIMEOUT = { timeout: 2000 }
@@ -82,6 +92,20 @@ async function scrapeWebsite(url: string) {
         })
 
         console.log("Property details: ", propertyDetails)
+
+        // Convert the data and creates a CSV file
+        const csvPropertyDetails: Array<CsvPropertyDetails> = [{
+            PropertyName: propertyDetails.name,
+            PropertyType: propertyDetails.type,
+            NumberOfBedrooms: propertyDetails.numberOfBedrooms,
+            NumberOfBathrooms: propertyDetails.numberOfBathrooms,
+            AvailableAmenities: propertyDetails.amenities.available,
+            UnavailableAmenities: propertyDetails.amenities.notIncluded
+        }]
+
+        writeToPath("propertyDetails.csv", csvPropertyDetails, { headers: true })
+            .on("error", error => console.error(error))
+
     } catch (error) {
         console.error(error)
     } finally {
@@ -91,7 +115,7 @@ async function scrapeWebsite(url: string) {
 }
 
 
-scrapeWebsite('broken_url') // Broken url
-scrapeWebsite('https://www.airbnb.co.uk/rooms/33571268') // Page cannot be found
-scrapeWebsite('https://www.airbnb.co.uk/rooms/20669368') // Little Country Houses - Poppy's Pad with hot tub
+// scrapeWebsite('broken_url') // Broken url
+// scrapeWebsite('https://www.airbnb.co.uk/rooms/33571268') // Page cannot be found
+// scrapeWebsite('https://www.airbnb.co.uk/rooms/20669368') // Little Country Houses - Poppy's Pad with hot tub
 scrapeWebsite('https://www.airbnb.co.uk/rooms/50633275') // Lovely loft on the beautiful North Norfolk Coast
