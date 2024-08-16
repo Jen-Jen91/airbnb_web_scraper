@@ -6,6 +6,7 @@ The `scrapeWebsite` function is called with a url and Puppeteer renders the webs
 
 ### To run the web scraper:
 
+- Puppeteer requires Node version 18 or higher to run
 - Run `npm install`
 - On the `webScraper.ts` file, un-comment a `scrapeWebsite` call with the url you wish to use
   - It's best to only run one call at a time, otherwise the generated CSV file will be overwitten each time
