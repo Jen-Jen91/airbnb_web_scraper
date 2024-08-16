@@ -44,7 +44,7 @@ async function scrapeWebsite(url: string) {
         await page.click('div[data-section-id="AMENITIES_DEFAULT"] button')
             .catch((e) => console.error(e))
 
-        // Wait for modal to appear
+        // Wait for amenities modal to appear
         await page.waitForSelector('div[aria-label="What this place offers"]', TIMEOUT)
             .catch((e) => console.error(e))
 
@@ -93,7 +93,7 @@ async function scrapeWebsite(url: string) {
 
         console.log("Property details: ", propertyDetails)
 
-        // Convert the data and creates a CSV file
+        // Convert the data and create a CSV file
         const csvPropertyDetails: Array<CsvPropertyDetails> = [{
             PropertyName: propertyDetails.name,
             PropertyType: propertyDetails.type,
@@ -114,8 +114,7 @@ async function scrapeWebsite(url: string) {
     }
 }
 
-
-// scrapeWebsite('broken_url') // Broken url
-// scrapeWebsite('https://www.airbnb.co.uk/rooms/33571268') // Page cannot be found
-// scrapeWebsite('https://www.airbnb.co.uk/rooms/20669368') // Little Country Houses - Poppy's Pad with hot tub
-scrapeWebsite('https://www.airbnb.co.uk/rooms/50633275') // Lovely loft on the beautiful North Norfolk Coast
+// scrapeWebsite('broken_url') // Broken url - should error out
+// scrapeWebsite('https://www.airbnb.co.uk/rooms/33571268') // Page cannot be found - should log errors for initial waitForSelector calls but still generate a local CSV file with empty data
+// scrapeWebsite('https://www.airbnb.co.uk/rooms/20669368') // Little Country Houses - should generate a populated CSV file
+scrapeWebsite('https://www.airbnb.co.uk/rooms/50633275') // Lovely loft on the beautiful North Norfolk Coast - should generate a populated CSV file
